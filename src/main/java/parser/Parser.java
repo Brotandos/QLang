@@ -83,6 +83,9 @@ public final class Parser {
         if (match(TokenType.HEX_NUMBER)) {
             return new NumberExpression(Long.parseLong(current.getText(), 16));
         }
+        if (match(TokenType.WORD)) {
+            return new ConstantExpression(current.getText());
+        }
         if (match(TokenType.LPAREN)) {
             Expression result = expression();
             match(TokenType.RPAREN);
