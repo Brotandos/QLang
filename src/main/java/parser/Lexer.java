@@ -49,7 +49,12 @@ public final class Lexer {
     private void tokenizeNumber() {
         final StringBuilder buffer = new StringBuilder();
         char current = peek(0);
-        while (Character.isDigit(current)) {
+        while (true) {
+            if (current == '.') {
+                if (buffer.indexOf(".") != -1) throw new RuntimeException("Invalid float number");
+            } else if (!Character.isDigit(current)) {
+                break;
+            }
             buffer.append(current);
             current = next();
         }
