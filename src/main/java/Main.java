@@ -11,7 +11,7 @@ import java.util.List;
  */
 public final class Main {
     public static void main(String[] args) {
-        final String input = "2 + 2 * 2";
+        final String input = "(2 + 2) * #0F";
         final List<Token> tokens = new Lexer(input).tokenize();
         for (Token token : tokens) {
             System.out.println(token);

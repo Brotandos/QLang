@@ -66,9 +66,12 @@ public final class Parser {
     }
 
     private Expression unary(){
-        /*if (match(TokenType.MINUS)) {
-
-        }*/
+        if (match(TokenType.MINUS)) {
+            return new UnaryExpression('-', primary());
+        }
+        if (match(TokenType.PLUS)) {
+            return primary();
+        }
         return primary();
     }
 
@@ -76,6 +79,14 @@ public final class Parser {
         final Token current = get(0);
         if ((match(TokenType.NUMBER))) {
             return new NumberExpression(Double.parseDouble(current.getText()));
+        }
+        if (match(TokenType.HEX_NUMBER)) {
+            return new NumberExpression(Long.parseLong(current.getText(), 16));
+        }
+        if (match(TokenType.LPAREN)) {
+            Expression result = expression();
+            match(TokenType.RPAREN);
+            return result;
         }
         throw new RuntimeException("Unknown expression");
     }

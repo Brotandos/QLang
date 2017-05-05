@@ -6,4 +6,5 @@ package entity;
  */
 public interface Expression {
     double eval();
+    @Override String toString();
 }

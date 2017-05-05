@@ -21,8 +21,8 @@ public final class BinaryExpression implements Expression {
             case '/': return expr1.eval() / expr2.eval();
             case '*': return expr1.eval() * expr2.eval();
             case '+':
-            default:
-                return expr1.eval() + expr2.eval();
+                default:
+                    return expr1.eval() + expr2.eval();
         }
     }
 
