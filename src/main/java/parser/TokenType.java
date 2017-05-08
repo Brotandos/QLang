@@ -1,4 +1,4 @@
-package entity;
+package parser;
 
 /**
  * @author: Brotandos.
@@ -14,6 +14,7 @@ public enum TokenType {
     MINUS,
     STAR,
     SLASH,
+    EQ,
 
     LPAREN, // (
     RPAREN, // )

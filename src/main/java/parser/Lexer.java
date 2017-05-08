@@ -1,8 +1,5 @@
 package parser;
 
-import entity.Token;
-import entity.TokenType;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +13,12 @@ public final class Lexer {
     private final int length;
     private int pos;
 
-    private static final String OPERATOR_CHARS = "+-*/()";
+    private static final String OPERATOR_CHARS = "+-*/()=";
     private static final TokenType[] OPERATOR_TOKENS = {
             TokenType.PLUS,     TokenType.MINUS,
             TokenType.STAR,     TokenType.SLASH,
-            TokenType.LPAREN,   TokenType.RPAREN
+            TokenType.LPAREN,   TokenType.RPAREN,
+            TokenType.EQ
     };
 
     public Lexer(String input) {

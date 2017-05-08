@@ -1,6 +1,6 @@
 package parser;
 
-import entity.*;
+import parser.ast.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,26 @@ public final class Parser {
         size = tokens.size();
     }
 
-    public List<Expression> parse() {
-        final List<Expression> result = new ArrayList<>();
+    public List<Statement> parse() {
+        final List<Statement> result = new ArrayList<>();
         while (!match(TokenType.EOF)) {
-            result.add(expression());
+            result.add(statement());
         }
         return result;
+    }
+
+    private Statement statement() {
+        return assignmentStatement();
+    }
+
+    private Statement assignmentStatement() {
+        final Token current = get(0);
+        if (match(TokenType.WORD) && get(0).getType() == TokenType.EQ) {
+            final String variable = current.getText();
+            consume(TokenType.EQ);
+            return new AssignmentStatement(variable, expression());
+        }
+        throw new RuntimeException("Unknown statement");
     }
 
     private Expression expression(){
@@ -84,7 +98,7 @@ public final class Parser {
             return new NumberExpression(Long.parseLong(current.getText(), 16));
         }
         if (match(TokenType.WORD)) {
-            return new ConstantExpression(current.getText());
+            return new VariableExpression(current.getText());
         }
         if (match(TokenType.LPAREN)) {
             Expression result = expression();
@@ -92,6 +106,13 @@ public final class Parser {
             return result;
         }
         throw new RuntimeException("Unknown expression");
+    }
+
+    private Token consume(TokenType type) {
+        final Token current = get(0);
+        if (type!= current.getType()) throw new RuntimeException("Token " + current + " doesn't match " + type);
+        pos++;
+        return current;
     }
 
     private boolean match(TokenType type) {

@@ -1,4 +1,4 @@
-package entity;
+package parser.ast;
 
 /**
  * @author: Brotandos.
