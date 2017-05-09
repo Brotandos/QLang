@@ -30,6 +30,9 @@ public final class Parser {
     }
 
     private Statement statement() {
+        if (match(TokenType.PRINT)) {
+            return new PrintStatement(expression());
+        }
         return assignmentStatement();
     }
 

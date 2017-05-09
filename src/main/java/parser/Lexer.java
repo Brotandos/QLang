@@ -84,7 +84,12 @@ public final class Lexer {
             buffer.append(current);
             current = next();
         }
-        addToken(TokenType.WORD, buffer.toString());
+        String word = buffer.toString();
+        if (word.equals("print")) {
+            addToken(TokenType.PRINT);
+        } else {
+            addToken(TokenType.WORD, buffer.toString());
+        }
     }
 
     private void tokenizeOperator() {

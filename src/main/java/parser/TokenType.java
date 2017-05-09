@@ -10,6 +10,9 @@ public enum TokenType {
     HEX_NUMBER,
     WORD,
 
+    // keyword
+    PRINT,
+
     PLUS,
     MINUS,
     STAR,
